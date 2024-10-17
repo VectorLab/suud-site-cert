@@ -18,7 +18,7 @@ const oauthLogin = () => {
   const permissions = [1, 2, 3];
   permissions.forEach(p => SUUD.searchParams.append("p", p));
 
-  const callbackURL = new URL(dashboardURL.value, window.location.href);
+  const callbackURL = new URL(dashboardURL, window.location.href);
   SUUD.searchParams.set("cb", callbackURL.toString());
 
   try {

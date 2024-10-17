@@ -1,10 +1,16 @@
 <template>
   <div class="container">
-    <p v-if="userData">{{ $t("welcome") }} {{ userData.username }}</p>
+    <p>Welcome, {{ userData.username }}</p>
+    <img :src="userData.avatar"/>
   </div>
 </template>
 
 <script setup>
+const userData=ref({
+  username:"",
+  avatar:""
+});
+
 onMounted(async () => {
   try {
     const url = new URL(window.location.href);
@@ -22,8 +28,9 @@ onMounted(async () => {
     });
 
     if (res.ok) {
-      userData.value = await res.json();
-      console.log(userData.value);
+      const res_data= await res.json();
+      userData.value.username =res_data.username;
+      userData.value.avatar =res_data.avatar;
     } else {
       window.location.href = "/";
     }
